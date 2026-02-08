@@ -23,6 +23,7 @@
                 @else
                     {!! $label !!}
                 @endif
+                <div wire:loading wire:target='{{ $instantSave === 'instantSave' || $instantSave == '1' ? 'instantSave' : $instantSave }}' class="loading loading-xs text-warning loading-spinner"></div>
                 @if ($helper)
                     <x-helper :helper="$helper" />
                 @endif
@@ -31,7 +32,7 @@
         @if ($instantSave)
             <input type="checkbox" @disabled($disabled) {{ $attributes->merge(['class' => $defaultClass]) }}
                 wire:loading.attr="disabled"
-                wire:click='{{ $instantSave === 'instantSave' || $instantSave == '1' ? 'instantSave' : $instantSave }}'
+                wire:click='{{ $instantSave === 'instantSave' || $instantSave == '1' ? 'instantSave' : "instantSave('{$modelBinding}')" }}'
                 wire:model={{ $modelBinding }} id="{{ $htmlId }}" @if ($checked) checked @endif />
         @else
             @if ($domValue)

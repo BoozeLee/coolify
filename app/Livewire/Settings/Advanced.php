@@ -15,8 +15,6 @@ class Advanced extends Component
     public bool $is_registration_enabled;
     #[Validate('boolean')]
     public bool $is_oauth_registration_enabled;
-    #[Validate('boolean')]
-    public bool $is_oauth_registration_enabled;
 
     #[Validate('boolean')]
     public bool $do_not_track;
@@ -46,7 +44,6 @@ class Advanced extends Component
         return [
             'is_registration_enabled' => 'boolean',
             'is_oauth_registration_enabled' => 'boolean',
-            'is_oauth_registration_enabled' => 'boolean',
             'do_not_track' => 'boolean',
             'is_dns_validation_enabled' => 'boolean',
             'custom_dns_servers' => 'nullable|string',
@@ -68,7 +65,6 @@ class Advanced extends Component
         $this->allowed_ips = $this->settings->allowed_ips;
         $this->do_not_track = $this->settings->do_not_track;
         $this->is_registration_enabled = $this->settings->is_registration_enabled;
-        $this->is_oauth_registration_enabled = $this->settings->is_oauth_registration_enabled;
         $this->is_oauth_registration_enabled = $this->settings->is_oauth_registration_enabled;
         $this->is_dns_validation_enabled = $this->settings->is_dns_validation_enabled;
         $this->is_api_enabled = $this->settings->is_api_enabled;
@@ -142,20 +138,10 @@ class Advanced extends Component
         }
     }
 
-    public function instantSave()
+    public function instantSave($model)
     {
         try {
-            $this->settings->is_registration_enabled = $this->is_registration_enabled;
-            $this->settings->is_oauth_registration_enabled = $this->is_oauth_registration_enabled;
-            $this->settings->is_oauth_registration_enabled = $this->is_oauth_registration_enabled;
-            $this->settings->do_not_track = $this->do_not_track;
-            $this->settings->is_dns_validation_enabled = $this->is_dns_validation_enabled;
-            $this->settings->custom_dns_servers = $this->custom_dns_servers;
-            $this->settings->is_api_enabled = $this->is_api_enabled;
-            $this->settings->allowed_ips = $this->allowed_ips;
-            $this->settings->is_sponsorship_popup_enabled = $this->is_sponsorship_popup_enabled;
-            $this->settings->disable_two_step_confirmation = $this->disable_two_step_confirmation;
-            $this->settings->is_wire_navigate_enabled = $this->is_wire_navigate_enabled;
+            $this->settings->{$model} = $this->{$model};
             $this->settings->save();
             $this->dispatch('success', 'Settings updated!');
         } catch (\Exception $e) {
