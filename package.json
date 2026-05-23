@@ -10,7 +10,7 @@
         "@tailwindcss/postcss": "4.1.18",
         "@vitejs/plugin-vue": "6.0.3",
         "axios": "1.15.2",
-        "laravel-echo": "2.2.7",
+        "laravel-echo": "2.3.4",
         "laravel-vite-plugin": "2.0.1",
         "postcss": "8.5.14",
         "pusher-js": "8.4.0",
